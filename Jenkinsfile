@@ -4,7 +4,6 @@ pipeline {
         stage('build') {
             steps {
                 echo 'Building the application'
-                sh 'docker compose build .'
             }
         }
         stage('test') {
