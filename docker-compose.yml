@@ -1,0 +1,28 @@
+version: '3'
+services:
+    assessment:
+        depends_on:
+        - db_mysql
+        links:
+        - db_mysql
+        restart: always
+        build:
+            dockerfile: Dockerfile
+        environment:
+            - DB_HOST=db_mysql
+            - DB_PORT=3307
+            - PORT=8080
+            - DB_USER=dummy
+            - DB_PWD=dummy@123
+            - DB_NAME=trade_db
+            - DB_DRIVER=mysql
+    db_mysql:
+        image: mysql:latest
+        ports:
+        - 3307:3306
+        environment:
+        - MYSQL_ROOT_PASSWORD=S3cret
+        - MYSQL_PASSWORD=dummy@123
+        - MYSQL_USER=dummy
+        - MYSQL_DATABASE=trade_db
+        - MYSQL_ROOT_HOST='%'  

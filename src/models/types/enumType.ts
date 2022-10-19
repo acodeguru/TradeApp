@@ -1,0 +1,4 @@
+enum ExecutionType {
+    buy,
+    sell
+}
