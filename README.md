@@ -1,4 +1,4 @@
-# Run TradeApp
+## Run TradeApp
 npm start
 
 ## Please make sure to install modules
