@@ -7,9 +7,6 @@ const dbName = process.env.DB_NAME as string
 const dbUser = process.env.DB_USER as string
 const dbPort = Number(process.env.DB_PORT)
 
-console.log("------------------------------------------------#######################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-console.log(dbPort)
-console.log("------------------------------------------------#######################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 const dbHost = process.env.DB_HOST
 const dbDriver = process.env.DB_DRIVER as Dialect
 const dbPassword = process.env.DB_PWD
