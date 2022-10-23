@@ -13,12 +13,6 @@ pipeline {
                 echo 'Building the application'
             }
         }
-	stage('Push image') {
-		docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-		    app.push("${env.BUILD_NUMBER}")
-		    app.push("latest")
-		}
-    	}
         stage('login_dockerhub') {
 		steps {
 			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
