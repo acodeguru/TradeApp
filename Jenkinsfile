@@ -26,7 +26,7 @@ pipeline {
 	}
 	stage('push_dockerhub') {
 		steps {
-			sh 'docker push test_cicd-trade:latest'
+			sh 'docker push dinushadee/test_cicd_emapta_trade:latest'
 		}
 	}
         
