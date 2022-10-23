@@ -8,22 +8,20 @@ pipeline {
             steps {
                 sh 'ls -altr'
                 sh 'docker compose build'
+		sh 'docker images'
                 echo 'Building the application'
             }
         }
         stage('login_dockerhub') {
-
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
+		steps {
+			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 		}
-
-		stage('push_dockerhub') {
-
-			steps {
-				sh 'docker push dinushadee/nodeapp:latest'
-			}
+	}
+	stage('push_dockerhub') {
+		steps {
+			sh 'docker push test_cicd-trade:latest'
 		}
+	}
         
         stage('test') {
             steps {
