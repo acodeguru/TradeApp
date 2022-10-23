@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh 'docker-compose up'
                 echo 'Building the application'
             }
         }
