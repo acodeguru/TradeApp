@@ -1,6 +1,7 @@
 pipeline {
     agent any 
     environment {
+	    	BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
 	        DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
 		DOCKERHUB_CREDENTIALS=credentials('jenkins_docker_hub')
 	}
@@ -8,7 +9,7 @@ pipeline {
         stage('build') {
             steps {
                 sh 'ls -altr'
-                sh 'docker compose build'
+                sh 'docker compose build -t $DOCKER_REGISTRY:$BUILDVERSION'
 		sh 'docker images'
                 echo 'Building the application'
             }
@@ -20,7 +21,7 @@ pipeline {
 	}
 	stage('push_dockerhub') {
 		steps {
-			sh 'docker push dinushadee/test_cicd_emapta_trade:latest'
+			sh 'docker push $DOCKER_REGISTRY:$BUILDVERSION'
 		}
 	}
         
