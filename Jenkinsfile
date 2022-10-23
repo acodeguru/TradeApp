@@ -9,7 +9,7 @@ pipeline {
         stage('build') {
             steps {
                 sh 'ls -altr'
-                sh 'docker compose build -t $DOCKER_REGISTRY:$BUILDVERSION'
+                sh 'docker compose build'
 		sh 'docker images'
                 echo 'Building the application'
             }
