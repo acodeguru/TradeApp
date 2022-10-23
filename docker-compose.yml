@@ -8,6 +8,7 @@ services:
         restart: always
         build:
             dockerfile: Dockerfile
+        image: ${DOCKER_REGISTRY}:${BUILDVERSION}
         environment:
             - DB_HOST=db_mysql
             - DB_PORT=52000
