@@ -14,10 +14,14 @@ COPY src /app/src
 
 # check files list
 RUN ls -a
+RUN pwd
 
 RUN npm install
 RUN npm run build
 
-EXPOSE 7777
+RUN ls -a
+RUN pwd
+
+EXPOSE 8080
 
 CMD [ "node", "./dist/app.js" ]
