@@ -18,6 +18,6 @@ COPY . .
 CMD ["npm", "run", "build"]
 RUN pwd
 RUN ls -altr
-
+CMD [ "node", "dist/app.js" ]
 
 EXPOSE 8080
