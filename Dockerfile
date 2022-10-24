@@ -1,29 +1,19 @@
-FROM node:10-alpine
+FROM node:16
 
-# update packages
-RUN apk update
+# app directory
+WORKDIR /usr/src/app
 
-# create root application folder
-WORKDIR /app
-
-# copy configs to /app folder
-COPY package*.json ./
+# Install app dependencies
+COPY package.json ./
 COPY tsconfig.json ./
-# copy source code to /app/src folder
-COPY src /app/src
-
-# check files list
-RUN ls -a
-RUN pwd
 
 RUN npm install
-RUN npm run build
+#RUN npm ci --only=production
 
-RUN ls -a
-RUN pwd
-RUN /app ls -a
-RUN /app/dist ls -a
+# copy bundle
+COPY . .
 
 EXPOSE 8080
-
-CMD [ "node", "./dist/app.js" ]
+RUN pwd
+RUN ls -altr
+CMD [ "node", "dist/app.js" ]
