@@ -21,6 +21,8 @@ RUN npm run build
 
 RUN ls -a
 RUN pwd
+RUN /app ls -a
+RUN /app/dist ls -a
 
 EXPOSE 8080
 
