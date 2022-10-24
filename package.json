@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "tsc && node ./dist/app.js"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
