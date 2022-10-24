@@ -13,9 +13,10 @@ RUN npm install
 # copy bundle
 COPY . .
 
-EXPOSE 8080
+
 CMD ["npm", "run", "build"]
 RUN pwd
 RUN ls -altr
 CMD [ "node", "dist/app.js" ]
 
+EXPOSE 8080
