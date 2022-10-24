@@ -17,5 +17,5 @@ COPY . .
 EXPOSE 8080
 RUN pwd
 RUN ls -altr
-RUN dist ls -altr
 CMD [ "node", "dist/app.js" ]
+
