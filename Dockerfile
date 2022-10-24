@@ -11,7 +11,7 @@ RUN npm install
 #RUN npm ci --only=production
 RUN whoami
 
-chown -R jenkins:jenkins //usr/src/app
+RUN chown -R jenkins:jenkins //usr/src/app
 # copy bundle
 COPY . .
 
