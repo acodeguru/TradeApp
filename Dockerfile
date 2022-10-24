@@ -11,11 +11,11 @@ RUN npm install
 #RUN npm ci --only=production
 RUN whoami
 
-RUN chown -R jenkins:jenkins //usr/src/app
 # copy bundle
 COPY . .
 
 EXPOSE 8080
 RUN pwd
 RUN ls -altr
+RUN dist ls -altr
 CMD [ "node", "dist/app.js" ]
