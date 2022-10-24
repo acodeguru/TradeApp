@@ -11,7 +11,7 @@ RUN npm install
 #RUN npm ci --only=production
 RUN whoami
 
-chown -R testuser:testuser /var/www/test/public_html
+chown -R jenkins:jenkins /var/www/test/public_html
 # copy bundle
 COPY . .
 
