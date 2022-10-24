@@ -2,40 +2,30 @@ version: '3'
 services:
     trade:
         depends_on:
-        - db_mysql
+        - db_postgress
         links:
-        - db_mysql
+        - db_postgress
         restart: always
         build:
             dockerfile: Dockerfile
         image: ${DOCKER_REGISTRY}:${BUILDVERSION}
         environment:
             - DB_HOST=db_postgress
-            - DB_PORT=52000
+            - DB_PORT=5432
             - PORT=8080
-            - DB_USER=dummy
-            - DB_PWD=dummy@123
-            - DB_NAME=trade_db
-            - DB_DRIVER=mysql
+            - DB_USER=postgres
+            - DB_PASSWORD=postgres
+            - DB_NAME=postgres
+            - DB_DRIVER=postgres
 
     db_postgress:
-        image: mysql:latest
+        image: postgres
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+        ports: 
+          - '5432:5432'
         volumes:
-            - todo-db_postgress-data:/var/lib/db_postgress
-        environment: 
-            - MYSQL_ROOT_HOST='host.docker.internal'
-            - MYSQL_ROOT_PASSWORD=S3cret
-            - MYSQL_PASSWORD=dummy@123
-            - MYSQL_USER=dummy
-            - MYSQL_DATABASE=trade_db
-        ports:
-            - 52000:3306
-        volumes:
-            - todo-mysql-data:/var/lib/mysql
+          - tradeapp-db:/var/lib/postgresql/data
 volumes:
-  todo-db_postgress-data:
-
-    # db_mysql:
-    #     image: mysql:latest
-
-    #     environment:
+  tradeapp-db:
