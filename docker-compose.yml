@@ -14,7 +14,7 @@ services:
             - DB_PORT=5432
             - PORT=8080
             - DB_USER=postgres
-            - DB_PASSWORD=postgres
+            - DB_PWD=postgres
             - DB_NAME=postgres
             - DB_DRIVER=postgres
 
