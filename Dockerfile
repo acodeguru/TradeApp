@@ -14,8 +14,6 @@ RUN npm install -g typescript
 # copy bundle
 COPY . .
 
-
-CMD ["npm", "run", "build"]
 RUN pwd
 RUN ls -altr
 CMD ["npm", "run", "start"]
