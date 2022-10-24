@@ -1,8 +1,23 @@
-FROM node:12.17.0-alpine
-WORKDIR /usr
-COPY package.json ./
-RUN npm install --only=production
-COPY --from=0 /usr/dist .
-RUN npm install pm2 -g
-EXPOSE 80
-CMD ["pm2-runtime","app.js"]
+FROM node:10-alpine
+
+# update packages
+RUN apk update
+
+# create root application folder
+WORKDIR /app
+
+# copy configs to /app folder
+COPY package*.json ./
+COPY tsconfig.json ./
+# copy source code to /app/src folder
+COPY src /app/src
+
+# check files list
+RUN ls -a
+
+RUN npm install
+RUN npm run build
+
+EXPOSE 7777
+
+CMD [ "node", "./dist/app.js" ]
