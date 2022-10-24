@@ -2,15 +2,15 @@ version: '3'
 services:
     trade:
         depends_on:
-        - db_postgress
+        - db_postgres
         links:
-        - db_postgress
+        - db_postgres
         restart: always
         build:
             dockerfile: Dockerfile
         image: ${DOCKER_REGISTRY}:${BUILDVERSION}
         environment:
-            - DB_HOST=db_postgress
+            - DB_HOST=db_postgres
             - DB_PORT=5432
             - PORT=8080
             - DB_USER=postgres
@@ -18,7 +18,7 @@ services:
             - DB_NAME=postgres
             - DB_DRIVER=postgres
 
-    db_postgress:
+    db_postgres:
         image: postgres
         environment:
           - POSTGRES_USER=postgres
