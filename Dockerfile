@@ -14,5 +14,6 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-
+RUN pwd
+RUN ls -altr
 CMD [ "node", "dist/app.js" ]
