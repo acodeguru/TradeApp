@@ -9,12 +9,12 @@ COPY tsconfig.json ./
 
 RUN npm install
 #RUN npm ci --only=production
-RUN whoami
 
 # copy bundle
 COPY . .
 
-EXPOSE 8080
+EXPOSE 8080.
+CMD ["npm", "run", "build"]
 RUN pwd
 RUN ls -altr
 CMD [ "node", "dist/app.js" ]
