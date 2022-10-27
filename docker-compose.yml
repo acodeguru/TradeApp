@@ -17,8 +17,6 @@ services:
             - DB_PWD=postgres
             - DB_NAME=postgres
             - DB_DRIVER=postgres
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
           
     db_postgres:
         image: postgres
