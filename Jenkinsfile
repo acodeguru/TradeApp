@@ -1,7 +1,8 @@
 pipeline {
     agent any 
     environment {
-	    DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
+	    	BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
+	        DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
 		DOCKERHUB_CREDENTIALS=credentials('jenkins_docker_hub')
 	}
     stages {
@@ -13,27 +14,24 @@ pipeline {
                 echo 'Building the application'
             }
         }
-
         stage('login_dockerhub') {
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
-
-        stage('push_dockerhub') {
-            steps {
-                sh 'docker push dinushadee/test_cicd_emapta_trade:latest'
-            }
-        }
+		steps {
+			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+		}
+	}
+	stage('push_dockerhub') {
+		steps {
+			sh 'docker push $DOCKER_REGISTRY:$BUILDVERSION'
+		}
+	}
         
         stage('test') {
             steps {
                 echo 'Testing the application'
             }
         }
-
-        stage('deploy-k8')
-        {
+	    
+        stage('deploy-k8') {
             steps {
                 sshagent(['k8s-jenkins']){
                     // sh 'scp -r -o StrictHostKeyChecking=no deployment.yaml username@ip-addr:/path'
@@ -48,5 +46,11 @@ pipeline {
                 }
             }
         }
+	   
+    }
+    post {
+	always {
+		sh 'docker logout'
+	}
     }
 }
