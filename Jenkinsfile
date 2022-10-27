@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-	        DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
+	    DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
 		DOCKERHUB_CREDENTIALS=credentials('jenkins_docker_hub')
 	}
     stages {
@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh 'ls -altr'
                 sh 'docker compose build'
-		sh 'docker images'
+		        sh 'docker images'
                 echo 'Building the application'
             }
         }
@@ -19,8 +19,9 @@ pipeline {
                 app.push("${env.BUILD_NUMBER}")
                 app.push("latest")
             }
-            }
-            stage('login_dockerhub') {
+        }
+
+        stage('login_dockerhub') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
