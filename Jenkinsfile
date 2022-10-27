@@ -32,6 +32,24 @@ pipeline {
         }
 	    
         stage('deploy-k8') {
+	    steps {
+		    script {
+			try {
+			    sh 'kubectl apply -f deployement_service_user.yaml'
+			} catch(error) {
+
+			}
+		    }
+            }
+	    steps {
+		    script {
+			try {
+			    sh 'kubectl apply -f deployement_user_role.yaml'
+			} catch(error) {
+
+			}
+		    }
+            }
             steps {
 //                 sshagent(['k8s-jenkins']){
                     // sh 'scp -r -o StrictHostKeyChecking=no deployment.yaml username@ip-addr:/path'
