@@ -33,7 +33,7 @@ pipeline {
 	    
         stage('deploy-k8') {
             steps {
-                sshagent(['k8s-jenkins']){
+//                 sshagent(['k8s-jenkins']){
                     // sh 'scp -r -o StrictHostKeyChecking=no deployment.yaml username@ip-addr:/path'
                     script {
                         try {
@@ -43,7 +43,7 @@ pipeline {
 
                         }
                     }
-                }
+//                 }
             }
         }
 	   
