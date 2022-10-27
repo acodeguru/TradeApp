@@ -32,31 +32,15 @@ pipeline {
         }
 	    
         stage('deploy-k8') {
-	    steps {
-		    script {
-			try {
-			    echo 'Creating service user'
-			    sh 'kubectl apply -f deployement_service_user.yaml'
-			} catch(error) {
-
-			}
-		    }
-            }
-	    steps {
-		    script {
-			try {
-			    echo 'Configuring user role'
-			    sh 'kubectl apply -f deployement_user_role.yaml'
-			} catch(error) {
-
-			}
-		    }
-            }
             steps {
 //                 sshagent(['k8s-jenkins']){
                     // sh 'scp -r -o StrictHostKeyChecking=no deployment.yaml username@ip-addr:/path'
                     script {
                         try {
+		            echo 'Creating service user'
+			    sh 'kubectl apply -f deployement_service_user.yaml'
+			    echo 'Configuring user role'
+			    sh 'kubectl apply -f deployement_user_role.yaml'
 			    echo 'Deploying containers'
                             // sh 'ssh username@ipddr kubectl apply -f /path/node-deployment.yaml --kubeconfig=/path/kube.yaml'
                             sh 'kubectl apply -f deployment.yaml'
