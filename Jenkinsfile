@@ -9,15 +9,8 @@ pipeline {
             steps {
                 sh 'ls -altr'
                 sh 'docker compose build'
-		        sh 'docker images'
+		sh 'docker images'
                 echo 'Building the application'
-            }
-        }
-
-        stage('Push image') {
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                app.push("${env.BUILD_NUMBER}")
-                app.push("latest")
             }
         }
 
