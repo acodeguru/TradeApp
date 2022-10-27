@@ -9,7 +9,6 @@ pipeline {
         stage('build') {
             steps {
                 sh 'ls -altr'
-		sh 'usermod -a -G docker jenkins'
                 sh 'docker compose build'
 		sh 'docker images'
                 echo 'Building the application'
