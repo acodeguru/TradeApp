@@ -35,6 +35,7 @@ pipeline {
 	    steps {
 		    script {
 			try {
+			    echo 'Creating service user'
 			    sh 'kubectl apply -f deployement_service_user.yaml'
 			} catch(error) {
 
@@ -44,6 +45,7 @@ pipeline {
 	    steps {
 		    script {
 			try {
+			    echo 'Configuring user role'
 			    sh 'kubectl apply -f deployement_user_role.yaml'
 			} catch(error) {
 
@@ -55,6 +57,7 @@ pipeline {
                     // sh 'scp -r -o StrictHostKeyChecking=no deployment.yaml username@ip-addr:/path'
                     script {
                         try {
+			    echo 'Deploying containers'
                             // sh 'ssh username@ipddr kubectl apply -f /path/node-deployment.yaml --kubeconfig=/path/kube.yaml'
                             sh 'kubectl apply -f deployment.yaml'
                         } catch(error) {
