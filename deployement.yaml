@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tradeapp-deployment
+  labels:
+     app: tradeapp
+     type: back-end
+spec:
+  template:
+     metadata:
+       name: tradeapp-pod
+       labels: 
+         app: tradeapp
+         type: back-end
+     spec:
+         containers:
+           - name: tradeapp-erp
+             image: "${DOCKER_REGISTRY}:${BUILDVERSION}0"
+  replicas: 1
+  selector:
+    matchLabels:
+      type: back-end
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tradeapp-service
+spec:
+  selector:
+    app: tradeapp
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      targetPort: 8080
+      port: 8080
+      nodePort: 8080
