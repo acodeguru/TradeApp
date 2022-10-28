@@ -40,7 +40,7 @@ pipeline {
                     
                     try {
 		                echo 'Creating service user'
-			            sh 'envsubst < deployement.yaml | kubectl apply -f -'
+			            sh 'kubectl apply -f deployment.yaml --context tradeapp-cluster'
 // 			            echo 'Configuring user role'
 // 			            sh 'kubectl apply -f deployement_user_role.yaml'
 // 			            echo 'Deploying containers'
