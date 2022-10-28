@@ -40,11 +40,11 @@ pipeline {
                     
                     try {
 		                echo 'Creating service user'
-			            sh 'kubectl apply -f deployement_service_user.yaml'
-			            echo 'Configuring user role'
-			            sh 'kubectl apply -f deployement_user_role.yaml'
-			            echo 'Deploying containers'
-                        sh 'kubectl apply -f deployment.yaml'
+			            sh 'envsubst < deployement.yaml | kubectl apply -f -'
+// 			            echo 'Configuring user role'
+// 			            sh 'kubectl apply -f deployement_user_role.yaml'
+// 			            echo 'Deploying containers'
+//                         sh 'kubectl apply -f deployment.yaml'
                     } catch(error) {
 
                         }
