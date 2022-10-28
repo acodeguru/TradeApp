@@ -3,27 +3,24 @@ pipeline {
     environment {
 	    	BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
 	        DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
-		DOCKERHUB_CREDENTIALS=credentials('jenkins_docker_hub')
+		DOCKERHUB_CREDENTIALS='jenkins_docker_hub'
+	        DOCKER_IMAGE = ""
 	}
     stages {
         stage('build') {
             steps {
-                sh 'ls -altr'
-                sh 'docker compose build'
-		sh 'docker images'
-                echo 'Building the application'
+		echo 'Building image'
+                DOCKER_IMAGE = docker.build DOCKER_REGISTRY
             }
         }
-        stage('login_dockerhub') {
-		steps {
-			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-		}
-	}
 	stage('push_dockerhub') {
 		steps {
-			sh 'docker push $DOCKER_REGISTRY:$BUILDVERSION'
+			script {
+          			docker.withRegistry( 'https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS ) {
+            			dockerImage.push(BUILDVERSION)
+          		}
 			sh 'docker rmi -f $DOCKER_REGISTRY:$BUILDVERSION'   
-		}
+        	}
 	}
         
         stage('test') {
