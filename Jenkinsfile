@@ -4,13 +4,16 @@ pipeline {
         BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
         DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
         DOCKERHUB_CREDENTIALS='jenkins_docker_hub'
+	    DOCKER_IMAGE = ""
     }
 
     stages {
         stage('build') {
             steps {
                 echo 'Building image'
-                IMAGE_DKR = docker.build DOCKER_REGISTRY
+                script {
+                    DOCKER_IMAGE = docker.build DOCKER_REGISTRY
+                }
             }
         }
 
@@ -18,7 +21,7 @@ pipeline {
 		    steps {
 			    script {
           			docker.withRegistry( 'https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS ) {
-            		    IMAGE_DKR.push(BUILDVERSION)
+            		        DOCKER_IMAGE.push(BUILDVERSION)
           		    }
                 }
 			    sh 'docker rmi -f $DOCKER_REGISTRY:$BUILDVERSION'   
