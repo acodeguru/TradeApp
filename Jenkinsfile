@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-	DOCKER_IMAGE = ""
+	IMAGE_DKR = "fjkljflje"
         BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
         DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
         DOCKERHUB_CREDENTIALS='jenkins_docker_hub'
@@ -11,7 +11,7 @@ pipeline {
         stage('build') {
             steps {
                 echo 'Building image'
-                DOCKER_IMAGE = docker.build DOCKER_REGISTRY
+                IMAGE_DKR = docker.build DOCKER_REGISTRY
             }
         }
 
@@ -19,7 +19,7 @@ pipeline {
 		    steps {
 			    script {
           			docker.withRegistry( 'https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS ) {
-            		    dockerImage.push(BUILDVERSION)
+            		    IMAGE_DKR.push(BUILDVERSION)
           		    }
                 }
 			    sh 'docker rmi -f $DOCKER_REGISTRY:$BUILDVERSION'   
