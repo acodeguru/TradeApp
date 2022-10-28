@@ -1,11 +1,11 @@
 pipeline {
     agent any 
     environment {
+	DOCKER_IMAGE = ""
         BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
         DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
         DOCKERHUB_CREDENTIALS='jenkins_docker_hub'
-        DOCKER_IMAGE = ""
-	}
+    }
 
     stages {
         stage('build') {
