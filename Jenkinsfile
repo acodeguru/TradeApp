@@ -22,6 +22,7 @@ pipeline {
 	stage('push_dockerhub') {
 		steps {
 			sh 'docker push $DOCKER_REGISTRY:$BUILDVERSION'
+			sh 'docker rmi -f $DOCKER_REGISTRY:$BUILDVERSION'   
 		}
 	}
         
