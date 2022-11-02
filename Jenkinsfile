@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Building image'
                 script {
-                    DOCKER_IMAGE = docker.build BUILD_NUMBER
+                    DOCKER_IMAGE = docker.build $BUILD_NUMBER
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
 		    steps {
 			    script {
           			docker.withRegistry( 'https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS ) {
-            		        DOCKER_IMAGE.push(BUILD_NUMBER)
+            		        DOCKER_IMAGE.push($BUILD_NUMBER)
           		    }
                 }
 			    sh 'docker rmi -f $DOCKER_REGISTRY:$BUILD_NUMBER'   
