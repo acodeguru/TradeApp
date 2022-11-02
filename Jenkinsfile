@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        BUILDVERSION = BUILD_NUMBER
+        BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
         DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
         DOCKERHUB_CREDENTIALS='jenkins_docker_hub'
 	    DOCKER_IMAGE = ""
