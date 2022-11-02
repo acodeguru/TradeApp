@@ -24,7 +24,7 @@ pipeline {
             		        DOCKER_IMAGE.push(BUILD_NUMBER)
           		    }
                 }
-			    sh 'docker rmi -f $DOCKER_REGISTRY:$BUILDVERSION'   
+			    sh 'docker rmi -f $DOCKER_REGISTRY:$BUILD_NUMBER'   
         	}
 	    }
         
