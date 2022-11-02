@@ -8,7 +8,7 @@ services:
         restart: always
         build:
             dockerfile: Dockerfile
-        image: ${DOCKER_REGISTRY}:${BUILDVERSION}
+        image: ${DOCKER_REGISTRY}:${BUILD_NUMBER}
         environment:
             - DB_HOST=db_postgres
             - DB_PORT=5432
