@@ -16,7 +16,7 @@ spec:
          serviceAccountName: myAccount
          containers:
            - name: tradeapp-erp
-             image: "${DOCKER_REGISTRY}:${BUILDVERSION}0"
+             image: "${DOCKER_REGISTRY}:${BUILD_NUMBER}0"
   replicas: 1
   selector:
     matchLabels:
