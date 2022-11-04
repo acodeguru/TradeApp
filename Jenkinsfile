@@ -3,7 +3,7 @@ pipeline {
     environment {
 	    	BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
 	        DOCKER_REGISTRY = "dinushadee/test_cicd_emapta_trade"
-		DOCKERHUB_CREDENTIALS=credentials('jenkins_docker_hub')
+		    DOCKERHUB_CREDENTIALS=credentials('jenkins_docker_hub')
 	}
     stages {
         stage('build') {
@@ -36,6 +36,11 @@ pipeline {
                 echo 'Deployement Started'
                 withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'jenkins_k8_service_cluster', namespace: 'jenkins', serverUrl: 'https://kubernetes.docker.internal:6443']]) {
                     echo 'Deployment Running'
+                    environment {
+                        BUILDVER = BUILDVERSION
+                        DOCKERREG = DOCKER_REGISTRY
+                    }
+                    
 			        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			        sh 'kubectl apply -f deployment.yaml'  
                     // some block
