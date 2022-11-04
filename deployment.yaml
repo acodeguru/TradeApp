@@ -23,7 +23,7 @@ spec:
          serviceAccountName: jenkins
          containers:
            - name: tradeapp-app
-             image: "${DOCKERREG}:${BUILDVER}"
+             image: "dinushadee/test_cicd_emapta_trade:latest"
   replicas: 1
   selector:
     matchLabels:
