@@ -36,6 +36,7 @@ pipeline {
                 echo 'Deployement Started'
                 withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'jenkins_k8_service_cluster', namespace: 'jenkins', serverUrl: 'https://kubernetes.docker.internal:6443']]) {
                     echo 'Deployment Running'
+			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			        sh 'kubectl apply -f deployment.yaml'  
                     // some block
                 }
