@@ -23,7 +23,7 @@ spec:
          serviceAccountName: jenkins
          containers:
            - name: tradeapp-app
-             image: "${DOCKER_REGISTRY}:${BUILD_NUMBER}"
+             image: "${DOCKERREG}:${BUILDVER}"
   replicas: 1
   selector:
     matchLabels:
