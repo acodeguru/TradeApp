@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh 'ls -altr'
                 sh 'docker compose build'
-		sh 'docker images'
+		        sh 'docker images'
                 echo 'Building the application'
             }
         }
@@ -36,6 +36,7 @@ pipeline {
                 echo 'Deployement Started'
                 withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'jenkins_k8_service_cluster', namespace: 'jenkins', serverUrl: 'https://kubernetes.docker.internal:6443']]) {
                     echo 'Deployment Running'
+			        sh 'kubectl apply -f deployment.yaml'  
                     // some block
                 }
 		    }
