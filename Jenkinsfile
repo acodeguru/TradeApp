@@ -37,7 +37,7 @@ pipeline {
                 withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'jenkins_k8_service_cluster', namespace: 'jenkins', serverUrl: 'https://kubernetes.docker.internal:6443']]) {
                     echo 'Deployment Running'
 			        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			        sh 'cat app-deployment.yaml | sed "s/{{DOCKER_REGISTRY}}/$DOCKER_REGISTRY/g" |sed "s/{{BUILDVERSION}}/$BUILDVERSION/g" | kubectl apply -f -'  
+			        sh 'cat deployment.yaml | sed "s/{{DOCKER_REGISTRY}}/$DOCKER_REGISTRY/g" |sed "s/{{BUILDVERSION}}/$BUILDVERSION/g" | kubectl apply -f -'  
                     // some block
                 }
 		    }
