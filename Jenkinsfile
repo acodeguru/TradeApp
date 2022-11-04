@@ -32,11 +32,13 @@ pipeline {
         }
 	    
         stage('deploy-k8') {
-            echo 'Deployement Started'
-		    withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'jenkins_k8_service_cluster', namespace: 'jenkins', serverUrl: 'https://kubernetes.docker.internal:6443']]) {
-                echo 'Deployment Running'
-                // some block
-            }
+		    steps {
+                echo 'Deployement Started'
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'jenkins_k8_service_cluster', namespace: 'jenkins', serverUrl: 'https://kubernetes.docker.internal:6443']]) {
+                    echo 'Deployment Running'
+                    // some block
+                }
+		    }
 //             steps {
 //                 sshagent(['k8s-jenkins']){
 //                     // sh 'scp -r -o StrictHostKeyChecking=no deployment.yaml username@ip-addr:/path'
