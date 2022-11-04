@@ -32,19 +32,24 @@ pipeline {
         }
 	    
         stage('deploy-k8') {
-            steps {
-                sshagent(['k8s-jenkins']){
-                    // sh 'scp -r -o StrictHostKeyChecking=no deployment.yaml username@ip-addr:/path'
-                    script {
-                        try {
-                            // sh 'ssh username@ipddr kubectl apply -f /path/node-deployment.yaml --kubeconfig=/path/kube.yaml'
-                            sh 'kubectl apply -f deployment.yaml'
-                        } catch(error) {
-
-                        }
-                    }
-                }
+            echo 'Deployement Started'
+		    withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'jenkins_k8_service_cluster', namespace: 'jenkins', serverUrl: 'https://kubernetes.docker.internal:6443']]) {
+                echo 'Deployment Running'
+                // some block
             }
+//             steps {
+//                 sshagent(['k8s-jenkins']){
+//                     // sh 'scp -r -o StrictHostKeyChecking=no deployment.yaml username@ip-addr:/path'
+//                     script {
+//                         try {
+//                             // sh 'ssh username@ipddr kubectl apply -f /path/node-deployment.yaml --kubeconfig=/path/kube.yaml'
+//                             sh 'kubectl apply -f deployment.yaml'
+//                         } catch(error) {
+
+//                         }
+//                     }
+//                 }
+//             }
         }
 	   
     }
