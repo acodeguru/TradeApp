@@ -43,6 +43,5 @@ spec:
       targetPort: 8080
       port: 8080
       nodePort: 8080
-  template:
-    spec:
-      serviceAccountName: jenkins
+  serviceAccountName: jenkins
+  automountServiceAccountToken: false
