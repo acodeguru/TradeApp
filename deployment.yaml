@@ -1,10 +1,41 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-   name: redis-pod
+  name: tradeapp-deployment
+  labels:
+     app: tradeapp
+     type: back-end
 spec:
-   containers:
-   - name: redis-container01
-     image: saravak/redis:latest
-     ports:
-     - containerPort: 6379
+  template:
+     metadata:
+       name: tradeapp-pod
+       labels: 
+         app: tradeapp
+         type: back-end
+     spec:
+         serviceAccountName: myAccount
+         containers:
+           - name: tradeapp-pod
+             image: "${DOCKER_REGISTRY}:${BUILD_NUMBER}"
+  replicas: 1
+  selector:
+    matchLabels:
+      type: back-end
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tradeapp-service
+spec:
+  selector:
+    app: tradeapp
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      targetPort: 8080
+      port: 8080
+      nodePort: 8080
+  template:
+    spec:
+      serviceAccountName: jenkins
